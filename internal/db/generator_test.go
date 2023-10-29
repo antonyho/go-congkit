@@ -1,13 +1,21 @@
 package db_test
 
 import (
+	"database/sql"
 	"os"
 	"path"
 	"testing"
 
 	"github.com/antonyho/go-cangjie/internal/data"
 	"github.com/antonyho/go-cangjie/internal/db"
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/stretchr/testify/assert"
+)
+
+const (
+	CountCharsQuery = `SELECT COUNT(ALL) FROM characters;`
+
+	CountRadicalsQuery = `SELECT COUNT(ALL) FROM radicals;`
 )
 
 func TestGenerate(t *testing.T) {
@@ -19,7 +27,25 @@ func TestGenerate(t *testing.T) {
 		assert.FailNow(t, "failed generating database", err)
 	}
 
-	// TODO - Verify the db
+	assert.FileExists(t, tempDbFile, "db file was not created")
+
+	fileInfo, err := os.Stat(tempDbFile)
+	if !assert.NoError(t, err) {
+		assert.FailNow(t, "unable to get file info of db file %s", tempDbFile)
+	}
+
+	assert.Greater(t, fileInfo.Size(), 0, "generated db file size is 0")
+
+	db := openDb(t, tempDbFile)
+	defer db.Close()
+
+	result := db.QueryRow(CountCharsQuery)
+	var rowCount int
+	err = result.Scan(&rowCount)
+	if !assert.NoError(t, err) {
+		assert.Fail(t, "failed querying 'characters' table row count. %v", err)
+	}
+	assert.Equal(t, 5, rowCount)
 }
 
 func loadTestTableData(t *testing.T) [][]string {
@@ -33,4 +59,13 @@ func loadTestTableData(t *testing.T) [][]string {
 	}
 
 	return cangjieTable
+}
+
+func openDb(t *testing.T, dbFilePath string) *sql.DB {
+	db, err := sql.Open("sqlite3", dbFilePath)
+	if !assert.NoError(t, err) {
+		assert.FailNow(t, "failed opening test db")
+	}
+
+	return db
 }
