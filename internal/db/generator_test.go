@@ -34,7 +34,7 @@ func TestGenerate(t *testing.T) {
 		assert.FailNow(t, "unable to get file info of db file %s", tempDbFile)
 	}
 
-	assert.Greater(t, fileInfo.Size(), 0, "generated db file size is 0")
+	assert.Greater(t, fileInfo.Size(), int64(0), "generated db file size is %d", fileInfo.Size())
 
 	db := openDb(t, tempDbFile)
 	defer db.Close()
@@ -46,6 +46,13 @@ func TestGenerate(t *testing.T) {
 		assert.Fail(t, "failed querying 'characters' table row count. %v", err)
 	}
 	assert.Equal(t, 5, rowCount)
+
+	result = db.QueryRow(CountRadicalsQuery)
+	err = result.Scan(&rowCount)
+	if !assert.NoError(t, err) {
+		assert.Fail(t, "failed querying 'radicals' table row count. %v", err)
+	}
+	assert.Equal(t, 10, rowCount)
 }
 
 func loadTestTableData(t *testing.T) [][]string {
