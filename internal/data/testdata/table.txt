@@ -1,0 +1,11 @@
+# Comment line at start of file
+
+倉 仓 1 1 0 0 1 0 0 0 0 oiar oiar NA 20770
+頡 颉 1 1 0 0 1 0 0 0 0 grmbc grmbc NA 16537
+
+# Comment line at mid of file
+＂ NA 0 0 0 0 0 0 0 1 0 NA NA " 0
+「 NA 0 0 0 0 0 0 0 1 0 NA NA ' 4
+　 NA 0 0 0 0 0 0 0 1 0 zxaa zxaa SPACE 0
+
+# Comment line at end of file
