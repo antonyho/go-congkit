@@ -1,1 +1,1 @@
-This is a generator for build stage to convert the text format Cangjie codes table, into SQLite3 database binary file.
+This is a generator for build stage to convert the text format Cangjie radicals table, into SQLite3 database binary file.

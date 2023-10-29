@@ -6,14 +6,14 @@ This project aims to create an input engine for Cangjie input method using Go.
 
 ### Features
 
-- Typing : Entering Cangjie codes will list the corresponding Chinese words with the subsequence codes.
+- Typing : Entering Cangjie radicals will list the corresponding Chinese words with the subsequence radicals.
 - Associated Phrase and Vocabularies: Finished typing a Chinese word will show a list of associated phrases.
 
 
 
 ### Data Source
 
-This project needs a data source for mapping Chinese characters and Cangjie codes.
+This project needs a data source for mapping Chinese characters and Cangjie radicals.
 
 The source could be borrowed from an earlier project which placed the table under Public Domain.
 

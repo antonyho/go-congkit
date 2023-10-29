@@ -46,7 +46,7 @@ func ReadBuiltinTable() ([][]string, error) {
 	return ReadTable(file)
 }
 
-// Read the line of raw data from the embed Cangjie codes table.
+// Read the line of raw data from the embed Cangjie radicals table.
 // Refer to the readme file in `assets/` directory for the data format.
 func readRaw(line string) ([]string, error) {
 	trimmedLine := strings.TrimSpace(line)
