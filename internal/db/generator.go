@@ -14,26 +14,6 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-/*
-type Entry struct {
-	Character           string
-	SimplifiedCharacter string
-	Chinese             bool
-	Big5                bool
-	HKSCS               bool
-	Zhuyin              bool
-	Kanji               bool
-	Hiragana            bool
-	Katakana            bool
-	PunctuationMark     bool
-	MiscSymbol          bool
-	CangjieV3Radicals   string
-	CangjieV5Radicals   string
-	ShortCut            string
-	SortOrder           uint16
-}
-*/
-
 const (
 	CreateCharsTableQuery = `
 	CREATE TABLE characters (
