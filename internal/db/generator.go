@@ -18,7 +18,7 @@ const (
 	CreateCharsTableQuery = `
 	CREATE TABLE characters (
 		idx INTEGER NOT NULL PRIMARY KEY ASC,
-		tc TEXT NOT NULL UNIQUE,
+		tc TEXT NOT NULL,
 		sc TEXT,
 		chinese INTEGER,
 		big5 INTEGER,
