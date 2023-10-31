@@ -102,8 +102,8 @@ func Generate(raw [][]string, dbFilePath string) error {
 		char, radicalSets := convert(rowNum, row)
 		if _, err := addCharStmt.Exec(
 			char.Idx,
-			char.Tradition,
-			char.Simplified,
+			string(char.Tradition),
+			string(char.Simplified),
 			char.Chinese,
 			char.Big5,
 			char.HKSCS,
