@@ -18,7 +18,7 @@ const (
 	CreateCharsTableQuery = `
 	CREATE TABLE characters (
 		idx INTEGER NOT NULL PRIMARY KEY ASC,
-		tc TEXT NOT NULL UNIQUE,
+		tc TEXT NOT NULL,
 		sc TEXT,
 		chinese INTEGER,
 		big5 INTEGER,
@@ -41,17 +41,19 @@ const (
 	);
 	`
 
+	CreateRadicalsIndexQuery = `CREATE INDEX idx_radicals on radicals(version, radical);`
+
 	AddCharsQuery = `
 	INSERT INTO characters (
 		idx, tc, sc, chinese, big5, hkcsc, zhuyin, kanji, 
 		hiragana, katakana, punctuation, symbol
 	) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 	`
 
 	AddRadicalsQuery = `
 	INSERT INTO radicals (char_idx, version, radical) 
-	VALUES (?, ?, ?)
+	VALUES (?, ?, ?);
 	`
 )
 
@@ -77,6 +79,9 @@ func Generate(raw [][]string, dbFilePath string) error {
 	if _, err := db.Exec(CreateRadicalsTableQuery); err != nil {
 		return fmt.Errorf("error creating 'radicals' table. %w", err)
 	}
+	if _, err := db.Exec(CreateRadicalsIndexQuery); err != nil {
+		return fmt.Errorf("error creating index for 'radicals' table. %w", err)
+	}
 
 	tx, err := db.Begin()
 	if err != nil {
@@ -97,8 +102,8 @@ func Generate(raw [][]string, dbFilePath string) error {
 		char, radicalSets := convert(rowNum, row)
 		if _, err := addCharStmt.Exec(
 			char.Idx,
-			char.Tradition,
-			char.Simplified,
+			string(char.Tradition),
+			string(char.Simplified),
 			char.Chinese,
 			char.Big5,
 			char.HKSCS,
