@@ -1,4 +1,5 @@
 BIN=go-cangjie
+DB_GENERATOR=gen-db
 
 .PHONY: dep dep-update dep-download build
 
@@ -23,4 +24,8 @@ test:
 	go test -v ./...
 
 build:
-	go build -o ${BIN}
+	go build -o ${DB_GENERATOR} ./cmd/db-generator
+	# go build -o ${BIN}
+
+generate: build
+	./gen-db

@@ -22,3 +22,6 @@ go.work
 
 # Cangjie database file
 cangjie.db
+
+# Project binaries
+gen-db
