@@ -18,3 +18,8 @@ This project needs a data source for mapping Chinese characters and Cangjie radi
 The source could be borrowed from an earlier project which placed the table under Public Domain.
 
 Cangjie Data Source: https://gitlab.freedesktop.org/cangjie/libcangjie/-/raw/master/data/table.txt
+
+
+### Description
+
+This project provides a binary which takes the input Cangjie radicals as English characters and outputs the corresponding matching Chinese word list.
