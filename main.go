@@ -84,6 +84,7 @@ func main() {
 	}
 
 	eng := engine.New(options...)
+	defer eng.Close()
 	result, err := eng.Encode(flag.Arg(0))
 	if err != nil {
 		fmt.Println(err)
