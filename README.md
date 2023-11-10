@@ -40,8 +40,71 @@ import (
 
 
 
-### Use as executable process
+### Build the binary
 
+#### On Linux
+##### Only building the binary
+```
+make
+```
+
+##### Build the binary and generate the database file
+```
+make generate
+```
+
+
+
+### Use as executable process
+```
+./cangjie [cangjie_radicals]
+
+Usage of ./cangjie:
+  -d string
+    	Custom database file path (default "cangjie.db")
+  -database string
+    	Custom database file path (default "cangjie.db")
+  -e	Use 'Easy' input method
+  -easy
+    	Use 'Easy' input method
+  -h	Print usages
+  -help
+    	Print usages
+  -p	Predict the possible typing word
+  -prediction
+    	Predict the possible typing word
+  -s	Output simplified Chinese word
+  -simplified
+    	Output simplified Chinese word
+  -v int
+    	Cangjie version(3/5) (default 5)
+  -version int
+    	Cangjie version(3/5) (default 5)
+```
+
+#### Usage Example #1
+```
+❯ ./cangjie hqi
+[我 牫 𥫻]
+```
+
+#### Usage Example #2
+```
+❯ ./cangjie -v=5 ykmhm
+[產]
+```
+
+#### Usage Example #3
+```
+❯ ./cangjie -v=3 yhhqm
+[產 産]
+```
+
+#### Usage Example #4
+```
+❯ ./cangjie -s oiar
+[仓]
+```
 
 
 ### To-Do Plan
