@@ -4,6 +4,7 @@ Chinese input method "Cangjie" engine written in Go
 This project aims to create an input engine for Cangjie input method using Go.
 
 
+
 ### Features
 
 - Typing : Entering Cangjie radicals will list the corresponding Chinese words with the subsequence radicals.
@@ -20,6 +21,30 @@ The source could be borrowed from an earlier project which placed the table unde
 Cangjie Data Source: https://gitlab.freedesktop.org/cangjie/libcangjie/-/raw/master/data/table.txt
 
 
+
 ### Description
 
 This project provides a binary which takes the input Cangjie radicals as English characters and outputs the corresponding matching Chinese word list.
+
+
+
+### Use as package
+
+`go get github.com/antonyho/go-cangjie`
+
+```
+import (
+    cangjie "github.com/antonyho/go-cangjie/engine"
+)
+```
+
+
+
+### Use as executable process
+
+
+
+### To-Do Plan
+
+- [ ] Benchmarks
+- [ ] Type frequency (consent needed)
