@@ -110,4 +110,5 @@ Usage of ./cangjie:
 ### To-Do Plan
 
 - [ ] Benchmarks
+- [ ] Support wildcard for uncertain radical
 - [ ] Type frequency (consent needed)
