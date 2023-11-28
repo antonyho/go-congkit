@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"unicode/utf8"
 
+	// SQLite3 driver for the engine, the engine uses SQlite3.
 	_ "github.com/mattn/go-sqlite3"
 )
 
