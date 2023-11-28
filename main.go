@@ -99,7 +99,7 @@ func main() {
 	fmt.Println(resultStrings)
 }
 
-func helpFunc(s string) error {
+func helpFunc(_ string) error {
 	flag.Usage()
 	os.Exit(0)
 
