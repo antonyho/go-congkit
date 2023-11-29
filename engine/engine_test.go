@@ -1,6 +1,7 @@
 package engine_test
 
 import (
+	"path"
 	"testing"
 
 	cangjie "github.com/antonyho/go-cangjie/engine"
@@ -211,7 +212,10 @@ func TestWithPredictionTestSuite(t *testing.T) {
 }
 
 func TestEngineInvalidDB(t *testing.T) {
-	engine := cangjie.New(cangjie.WithDatabase("notexist.db"))
+	tmpDir := t.TempDir()
+	notExistDBName := "notexist.db"
+	notExistDbPath := path.Join(tmpDir, notExistDBName)
+	engine := cangjie.New(cangjie.WithDatabase(notExistDbPath))
 	_, err := engine.Encode("oiar")
 	assert.Error(t, err)
 
