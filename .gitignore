@@ -8,6 +8,9 @@
 *.so
 *.dylib
 
+# GoLand/JetBrains settings
+.idea
+
 # Test binary, built with `go test -c`
 *.test
 
