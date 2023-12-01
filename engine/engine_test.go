@@ -9,6 +9,10 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+const (
+	TestDBPath = "testdata/cangjie.db"
+)
+
 type TestCase struct {
 	name     string
 	radicals string
@@ -23,7 +27,7 @@ type CangjieV3TestSuite struct {
 func (s *CangjieV3TestSuite) SetupSuite() {
 	engine := cangjie.New(
 		cangjie.WithCangjieV3(),
-		cangjie.WithDatabase("testdata/cangjie.db"),
+		cangjie.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -62,7 +66,7 @@ type CangjieV5TestSuite struct {
 func (s *CangjieV5TestSuite) SetupSuite() {
 	engine := cangjie.New(
 		cangjie.WithCangjieV5(),
-		cangjie.WithDatabase("testdata/cangjie.db"),
+		cangjie.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -101,7 +105,7 @@ type WithSimplifiedTestSuite struct {
 func (s *WithSimplifiedTestSuite) SetupSuite() {
 	engine := cangjie.New(
 		cangjie.WithSimplified(),
-		cangjie.WithDatabase("testdata/cangjie.db"),
+		cangjie.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -140,7 +144,7 @@ type WithEasyTestSuite struct {
 func (s *WithEasyTestSuite) SetupSuite() {
 	engine := cangjie.New(
 		cangjie.WithEasy(),
-		cangjie.WithDatabase("testdata/cangjie.db"),
+		cangjie.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -179,7 +183,7 @@ type WithPredictionTestSuite struct {
 func (s *WithPredictionTestSuite) SetupSuite() {
 	engine := cangjie.New(
 		cangjie.WithPrediction(),
-		cangjie.WithDatabase("testdata/cangjie.db"),
+		cangjie.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -236,7 +240,7 @@ func TestEngineSetOption(t *testing.T) {
 func TestEngineEncodeForMultiRadicalSetsWord(t *testing.T) {
 	wordWithMultipleRadicalSets := '曰'
 
-	engine := cangjie.New(cangjie.WithDatabase("testdata/cangjie.db"))
+	engine := cangjie.New(cangjie.WithDatabase(TestDBPath))
 
 	results, err := engine.Encode("a")
 	assert.NoError(t, err)
