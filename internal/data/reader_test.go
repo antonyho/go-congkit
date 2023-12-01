@@ -1,24 +1,24 @@
 package data_test
 
 import (
-	"os"
+	"embed"
 	"testing"
 
 	"github.com/antonyho/go-cangjie/internal/data"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
+
+//go:embed testdata/table.txt
+var testdataCangjieTable embed.FS
 
 func TestReadTable(t *testing.T) {
 	const expectedNumOfEntry = 5
 
-	testTable, err := os.Open("testdata/table.txt")
-	if !assert.NoError(t, err) {
-		assert.FailNow(t, "failed loading test data", err)
-	}
+	testTable, err := testdataCangjieTable.Open("testdata/table.txt")
+	require.NoError(t, err, "failed loading test data")
 	cangjieTable, err := data.ReadTable(testTable)
-	if !assert.NoError(t, err) {
-		assert.FailNow(t, "failed parsing table data", err)
-	}
+	require.NoError(t, err, "failed parsing table data")
 	assert.Len(t, cangjieTable, expectedNumOfEntry,
 		"result table size '%d' not as expected '%d'",
 		len(cangjieTable), expectedNumOfEntry)
@@ -28,9 +28,7 @@ func TestReadBuiltinTable(t *testing.T) {
 	const expectedNumOfEntry = 75012
 
 	cangjieTable, err := data.ReadBuiltinTable()
-	if !assert.NoError(t, err) {
-		assert.FailNow(t, "failed parsing table data", err)
-	}
+	require.NoError(t, err, "failed parsing table data")
 	assert.Len(t, cangjieTable, expectedNumOfEntry,
 		"result table size '%d' not as expected '%d'",
 		len(cangjieTable), expectedNumOfEntry)
