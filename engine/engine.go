@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"os"
 	"unicode/utf8"
 
 	// SQLite3 driver for the engine, the engine uses SQlite3.
@@ -15,6 +16,10 @@ type CangjieVersion int
 const (
 	CangjieV3 CangjieVersion = 3
 	CangjieV5 CangjieVersion = 5
+)
+
+const (
+	DatabaseDSNPattern = "file:%s?mode=ro"
 )
 
 type Option func(*Engine)
@@ -84,8 +89,14 @@ func New(options ...Option) *Engine {
 		option(e)
 	}
 
-	db, _ := sql.Open("sqlite3", e.dbPath)
-	e.db = db
+	if _, err := os.Stat(e.dbPath); err != nil && errors.Is(err, os.ErrNotExist) {
+		// The Cangjie database does not exist, create an in-memory database.
+		// This is a constructor. Trying not to return error here.
+		e.db, _ = sql.Open("sqlite3", ":memory:")
+	} else {
+		dsn := fmt.Sprintf(DatabaseDSNPattern, e.dbPath)
+		e.db, _ = sql.Open("sqlite3", dsn)
+	}
 
 	e.determineQuery()
 
@@ -101,8 +112,12 @@ func (e *Engine) Set(options ...Option) {
 }
 
 func (e *Engine) Encode(radicals string) (results []rune, err error) {
-	results = make([]rune, 0)
+	err = e.db.Ping()
+	if err != nil {
+		return
+	}
 
+	results = make([]rune, 0)
 	codes := radicals
 	if e.Easy {
 		if len(radicals) > 1 {
