@@ -7,8 +7,8 @@ import (
 	"path"
 	"testing"
 
-	"github.com/antonyho/go-cangjie/internal/data"
-	"github.com/antonyho/go-cangjie/internal/db"
+	"github.com/antonyho/go-congkit/internal/data"
+	"github.com/antonyho/go-congkit/internal/db"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -21,13 +21,13 @@ const (
 )
 
 //go:embed testdata/table.txt
-var testdataCangjieTable embed.FS
+var testdataCongkitTable embed.FS
 
 func TestGenerate(t *testing.T) {
-	cangjieTable := loadTestTableData(t)
+	congkitTable := loadTestTableData(t)
 
 	tempDbFile := path.Join(t.TempDir(), "test.db")
-	err := db.Generate(cangjieTable, tempDbFile)
+	err := db.Generate(congkitTable, tempDbFile)
 	require.NoError(t, err, "failed generating database")
 
 	assert.FileExists(t, tempDbFile, "db file was not created")
@@ -53,12 +53,12 @@ func TestGenerate(t *testing.T) {
 }
 
 func loadTestTableData(t *testing.T) [][]string {
-	testTable, err := testdataCangjieTable.Open("testdata/table.txt")
+	testTable, err := testdataCongkitTable.Open("testdata/table.txt")
 	require.NoError(t, err, "failed loading test data")
-	cangjieTable, err := data.ReadTable(testTable)
+	congkitTable, err := data.ReadTable(testTable)
 	require.NoError(t, err, "failed parsing table data")
 
-	return cangjieTable
+	return congkitTable
 }
 
 func openDb(t *testing.T, dbFilePath string) *sql.DB {

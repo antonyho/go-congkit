@@ -1,40 +1,40 @@
-# go-cangjie
-Chinese input method "Cangjie" engine written in Go
+# go-congkit
+Chinese input method "Congkit" engine written in Go
 
-This project aims to create an input engine for Cangjie input method using Go.
+This project aims to create an input engine for Congkit input method using Go.
 
 
 
 ### Features
 
-- Typing : Entering Cangjie radicals will list the corresponding Chinese words with the subsequence radicals.
+- Typing : Entering Congkit radicals will list the corresponding Chinese words with the subsequence radicals.
 - Associated Phrase and Vocabularies: Finished typing a Chinese word will show a list of associated phrases.
 
 
 
 ### Data Source
 
-This project needs a data source for mapping Chinese characters and Cangjie radicals.
+This project needs a data source for mapping Chinese characters and Congkit radicals.
 
 The source could be borrowed from an earlier project which placed the table under Public Domain.
 
-Cangjie Data Source: https://gitlab.freedesktop.org/cangjie/libcangjie/-/raw/master/data/table.txt
+Congkit Data Source: https://gitlab.freedesktop.org/cangjie/libcangjie/-/raw/master/data/table.txt
 
 
 
 ### Description
 
-This project provides a binary which takes the input Cangjie radicals as English characters and outputs the corresponding matching Chinese word list.
+This project provides a binary which takes the input Congkit radicals as English characters and outputs the corresponding matching Chinese word list.
 
 
 
 ### Use as package
 
-`go get github.com/antonyho/go-cangjie`
+`go get github.com/antonyho/go-congkit`
 
 ```
 import (
-    cangjie "github.com/antonyho/go-cangjie/engine"
+    congkit "github.com/antonyho/go-congkit/engine"
 )
 ```
 
@@ -57,13 +57,13 @@ make generate
 
 ### Use as executable process
 ```
-./cangjie [cangjie_radicals]
+./congkit [congkit_radicals]
 
-Usage of ./cangjie:
+Usage of ./congkit:
   -d string
-    	Custom database file path (default "cangjie.db")
+    	Custom database file path (default "congkit.db")
   -database string
-    	Custom database file path (default "cangjie.db")
+    	Custom database file path (default "congkit.db")
   -e	Use 'Easy' input method
   -easy
     	Use 'Easy' input method
@@ -77,32 +77,32 @@ Usage of ./cangjie:
   -simplified
     	Output simplified Chinese word
   -v int
-    	Cangjie version(3/5) (default 5)
+    	Congkit version(3/5) (default 5)
   -version int
-    	Cangjie version(3/5) (default 5)
+    	Congkit version(3/5) (default 5)
 ```
 
 #### Usage Example #1
 ```
-❯ ./cangjie hqi
+❯ ./congkit hqi
 [我 牫 𥫻]
 ```
 
 #### Usage Example #2
 ```
-❯ ./cangjie -v=5 ykmhm
+❯ ./congkit -v=5 ykmhm
 [產]
 ```
 
 #### Usage Example #3
 ```
-❯ ./cangjie -v=3 yhhqm
+❯ ./congkit -v=3 yhhqm
 [產 産]
 ```
 
 #### Usage Example #4
 ```
-❯ ./cangjie -s oiar
+❯ ./congkit -s oiar
 [仓]
 ```
 

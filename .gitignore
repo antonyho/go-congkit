@@ -23,9 +23,9 @@
 # Go workspace file
 go.work
 
-# Cangjie database file
-cangjie.db
+# Congkit database file
+congkit.db
 
 # Project binaries
 gen-db
-cangjie
+congkit

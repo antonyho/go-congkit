@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/antonyho/go-cangjie/db/models"
+	"github.com/antonyho/go-congkit/db/models"
 	// SQLite3 driver for the engine, the engine uses SQlite3.
 	_ "github.com/mattn/go-sqlite3"
 )

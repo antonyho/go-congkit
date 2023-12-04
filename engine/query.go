@@ -1,7 +1,7 @@
 package engine
 
 const (
-	GetCharFromCangjie = `
+	GetCharFromCongkit = `
 	SELECT tc FROM characters LEFT JOIN radicals 
 	ON (characters.idx = radicals.char_idx) 
 	WHERE radicals.version = ? AND radicals.radical = ?
@@ -19,7 +19,7 @@ const (
 	WHERE radicals.version = ? AND radicals.radical LIKE ?
 	`
 
-	GetSimplifiedCharFromCangjie = `
+	GetSimplifiedCharFromCongkit = `
 	SELECT sc FROM characters LEFT JOIN radicals 
 	ON (characters.idx = radicals.char_idx) 
 	WHERE radicals.version = ? AND radicals.radical = ?

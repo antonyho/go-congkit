@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/antonyho/go-cangjie/engine"
+	"github.com/antonyho/go-congkit/engine"
 )
 
 var (
@@ -17,13 +17,13 @@ var (
 )
 
 const (
-	DefaultDB             = "cangjie.db"
-	DefaultCangjieVersion = engine.CangjieV5
+	DefaultDB             = "congkit.db"
+	DefaultCongkitVersion = engine.CongkitV5
 )
 
 const (
 	HelpUsage        = "Print usages"
-	VersionUsage     = "Cangjie version(3/5)"
+	VersionUsage     = "Congkit version(3/5)"
 	SimplifiedUsage  = "Output simplified Chinese word"
 	EasyIMUsage      = "Use 'Easy' input method"
 	PredicationUsage = "Predict the possible typing word"
@@ -31,8 +31,8 @@ const (
 )
 
 func init() {
-	flag.IntVar(&version, "version", int(DefaultCangjieVersion), VersionUsage)
-	flag.IntVar(&version, "v", int(DefaultCangjieVersion), VersionUsage)
+	flag.IntVar(&version, "version", int(DefaultCongkitVersion), VersionUsage)
+	flag.IntVar(&version, "v", int(DefaultCongkitVersion), VersionUsage)
 
 	flag.BoolVar(&simplified, "simplified", false, SimplifiedUsage)
 	flag.BoolVar(&simplified, "s", false, SimplifiedUsage)
@@ -54,21 +54,21 @@ func main() {
 	flag.Parse()
 
 	if flag.NArg() < 1 {
-		fmt.Printf("%s [cangjie_radicals]\n\n", os.Args[0])
+		fmt.Printf("%s [congkit_radicals]\n\n", os.Args[0])
 		flag.Usage()
 		os.Exit(0)
 	}
 
 	options := []engine.Option{engine.WithDatabase(db)}
 
-	switch engine.CangjieVersion(version) {
-	case engine.CangjieV3:
-		options = append(options, engine.WithCangjieV3())
-	case engine.CangjieV5:
-		options = append(options, engine.WithCangjieV5())
+	switch engine.CongkitVersion(version) {
+	case engine.CongkitV3:
+		options = append(options, engine.WithCongkitV3())
+	case engine.CongkitV5:
+		options = append(options, engine.WithCongkitV5())
 
 	default:
-		options = append(options, engine.WithCangjieV5())
+		options = append(options, engine.WithCongkitV5())
 	}
 
 	if simplified {
