@@ -1,4 +1,4 @@
-module github.com/antonyho/go-cangjie
+module github.com/antonyho/go-congkit
 
 go 1.21.3
 

@@ -11,11 +11,11 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type CangjieVersion int
+type CongkitVersion int
 
 const (
-	CangjieV3 CangjieVersion = 3
-	CangjieV5 CangjieVersion = 5
+	CongkitV3 CongkitVersion = 3
+	CongkitV5 CongkitVersion = 5
 )
 
 const (
@@ -24,15 +24,15 @@ const (
 
 type Option func(*Engine)
 
-func WithCangjieV3() Option {
+func WithCongkitV3() Option {
 	return func(e *Engine) {
-		e.CangjieVersion = CangjieV3
+		e.CongkitVersion = CongkitV3
 	}
 }
 
-func WithCangjieV5() Option {
+func WithCongkitV5() Option {
 	return func(e *Engine) {
-		e.CangjieVersion = CangjieV5
+		e.CongkitVersion = CongkitV5
 	}
 }
 
@@ -64,12 +64,12 @@ func WithDatabase(path string) Option {
 
 // Engine defaults
 const (
-	DefaultCangjieVersion = CangjieV5
-	DefaultDatabasePath   = "./cangjie.db"
+	DefaultCongkitVersion = CongkitV5
+	DefaultDatabasePath   = "./congkit.db"
 )
 
 type Engine struct {
-	CangjieVersion
+	CongkitVersion
 	OutputSimplified bool // Output Simplified Chinese word
 	Easy             bool // "Easy" input method mode
 	Prediction       bool // Predict word while typing
@@ -80,7 +80,7 @@ type Engine struct {
 
 func New(options ...Option) *Engine {
 	e := &Engine{
-		CangjieVersion:   DefaultCangjieVersion,
+		CongkitVersion:   DefaultCongkitVersion,
 		OutputSimplified: false,
 		dbPath:           DefaultDatabasePath,
 	}
@@ -90,7 +90,7 @@ func New(options ...Option) *Engine {
 	}
 
 	if _, err := os.Stat(e.dbPath); err != nil && errors.Is(err, os.ErrNotExist) {
-		// The Cangjie database does not exist, create an in-memory database.
+		// The Congkit database does not exist, create an in-memory database.
 		// This is a constructor. Trying not to return error here.
 		e.db, _ = sql.Open("sqlite3", ":memory:")
 	} else {
@@ -127,7 +127,7 @@ func (e *Engine) Encode(radicals string) (results []rune, err error) {
 		codes = fmt.Sprintf("%s%%", radicals)
 	}
 
-	rows, err := e.db.Query(e.query, e.CangjieVersion, codes)
+	rows, err := e.db.Query(e.query, e.CongkitVersion, codes)
 	if err != nil {
 		return
 	}
@@ -161,7 +161,7 @@ func (e *Engine) determineQuery() {
 		} else if e.Prediction {
 			e.query = GetSimplifiedCharWithPrediction
 		} else {
-			e.query = GetSimplifiedCharFromCangjie
+			e.query = GetSimplifiedCharFromCongkit
 		}
 	} else {
 		if e.Easy {
@@ -169,7 +169,7 @@ func (e *Engine) determineQuery() {
 		} else if e.Prediction {
 			e.query = GetCharWithPrediction
 		} else {
-			e.query = GetCharFromCangjie
+			e.query = GetCharFromCongkit
 		}
 	}
 }

@@ -1,4 +1,4 @@
-BIN=cangjie
+BIN=congkit
 DB_GENERATOR=gen-db
 
 .PHONY: dep dep-update dep-download build

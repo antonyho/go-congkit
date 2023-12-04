@@ -4,13 +4,13 @@ import (
 	"path"
 	"testing"
 
-	cangjie "github.com/antonyho/go-cangjie/engine"
+	congkit "github.com/antonyho/go-congkit/engine"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
 const (
-	TestDBPath = "testdata/cangjie.db"
+	TestDBPath = "testdata/congkit.db"
 )
 
 type TestCase struct {
@@ -19,29 +19,29 @@ type TestCase struct {
 	expected []rune
 }
 
-type CangjieV3TestSuite struct {
+type CongkitV3TestSuite struct {
 	suite.Suite
-	cangjie.Engine
+	congkit.Engine
 }
 
-func (s *CangjieV3TestSuite) SetupSuite() {
-	engine := cangjie.New(
-		cangjie.WithCangjieV3(),
-		cangjie.WithDatabase(TestDBPath),
+func (s *CongkitV3TestSuite) SetupSuite() {
+	engine := congkit.New(
+		congkit.WithCongkitV3(),
+		congkit.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
 
-func (s *CangjieV3TestSuite) TearDownSuite() {
+func (s *CongkitV3TestSuite) TearDownSuite() {
 	s.Engine.Close()
 }
 
-func (s *CangjieV3TestSuite) TestEngineEncode() {
+func (s *CongkitV3TestSuite) TestEngineEncode() {
 	var testCases = []TestCase{
 		{"no match", "abcd", []rune{}},
 		{"single match", "oiar", []rune{'倉'}},
 		{"multiple matches", "hqi", []rune{'我', '牫', '𥫻'}},
-		{"cangjie v3 characters", "yhhqm", []rune{'產', '産'}},
+		{"congkit v3 characters", "yhhqm", []rune{'產', '産'}},
 		{"punctuation", "zxad", []rune{'。'}},
 	}
 
@@ -54,33 +54,33 @@ func (s *CangjieV3TestSuite) TestEngineEncode() {
 	}
 }
 
-func TestCangjieV3TestSuite(t *testing.T) {
-	suite.Run(t, new(CangjieV3TestSuite))
+func TestCongkitV3TestSuite(t *testing.T) {
+	suite.Run(t, new(CongkitV3TestSuite))
 }
 
-type CangjieV5TestSuite struct {
+type CongkitV5TestSuite struct {
 	suite.Suite
-	cangjie.Engine
+	congkit.Engine
 }
 
-func (s *CangjieV5TestSuite) SetupSuite() {
-	engine := cangjie.New(
-		cangjie.WithCangjieV5(),
-		cangjie.WithDatabase(TestDBPath),
+func (s *CongkitV5TestSuite) SetupSuite() {
+	engine := congkit.New(
+		congkit.WithCongkitV5(),
+		congkit.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
 
-func (s *CangjieV5TestSuite) TearDownSuite() {
+func (s *CongkitV5TestSuite) TearDownSuite() {
 	s.Engine.Close()
 }
 
-func (s *CangjieV5TestSuite) TestEngineEncode() {
+func (s *CongkitV5TestSuite) TestEngineEncode() {
 	var testCases = []TestCase{
 		{"no match", "abcd", []rune{}},
 		{"single match", "oiar", []rune{'倉'}},
 		{"multiple matches", "hqi", []rune{'我', '牫', '𥫻'}},
-		{"cangjie v5 character", "yhhqm", []rune{'産'}},
+		{"congkit v5 character", "yhhqm", []rune{'産'}},
 		{"punctuation", "zxad", []rune{'。'}},
 	}
 
@@ -93,19 +93,19 @@ func (s *CangjieV5TestSuite) TestEngineEncode() {
 	}
 }
 
-func TestCangjieV5TestSuite(t *testing.T) {
-	suite.Run(t, new(CangjieV5TestSuite))
+func TestCongkitV5TestSuite(t *testing.T) {
+	suite.Run(t, new(CongkitV5TestSuite))
 }
 
 type WithSimplifiedTestSuite struct {
 	suite.Suite
-	cangjie.Engine
+	congkit.Engine
 }
 
 func (s *WithSimplifiedTestSuite) SetupSuite() {
-	engine := cangjie.New(
-		cangjie.WithSimplified(),
-		cangjie.WithDatabase(TestDBPath),
+	engine := congkit.New(
+		congkit.WithSimplified(),
+		congkit.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -119,7 +119,7 @@ func (s *WithSimplifiedTestSuite) TestEngineEncode() {
 		{"no match", "abcd", []rune{}},
 		{"single match", "oiar", []rune{'仓'}},
 		{"multiple matches", "hqi", []rune{'我', '牫', '𥫻'}},
-		{"cangjie v5 character", "yhhqm", []rune{'产'}},
+		{"congkit v5 character", "yhhqm", []rune{'产'}},
 		{"punctuation", "zxad", []rune{}},
 	}
 
@@ -138,13 +138,13 @@ func TestWithSimplifiedTestSuite(t *testing.T) {
 
 type WithEasyTestSuite struct {
 	suite.Suite
-	cangjie.Engine
+	congkit.Engine
 }
 
 func (s *WithEasyTestSuite) SetupSuite() {
-	engine := cangjie.New(
-		cangjie.WithEasy(),
-		cangjie.WithDatabase(TestDBPath),
+	engine := congkit.New(
+		congkit.WithEasy(),
+		congkit.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -177,13 +177,13 @@ func TestWithEasyTestSuite(t *testing.T) {
 
 type WithPredictionTestSuite struct {
 	suite.Suite
-	cangjie.Engine
+	congkit.Engine
 }
 
 func (s *WithPredictionTestSuite) SetupSuite() {
-	engine := cangjie.New(
-		cangjie.WithPrediction(),
-		cangjie.WithDatabase(TestDBPath),
+	engine := congkit.New(
+		congkit.WithPrediction(),
+		congkit.WithDatabase(TestDBPath),
 	)
 	s.Engine = *engine
 }
@@ -219,7 +219,7 @@ func TestEngineInvalidDB(t *testing.T) {
 	tmpDir := t.TempDir()
 	notExistDBName := "notexist.db"
 	notExistDbPath := path.Join(tmpDir, notExistDBName)
-	engine := cangjie.New(cangjie.WithDatabase(notExistDbPath))
+	engine := congkit.New(congkit.WithDatabase(notExistDbPath))
 	_, err := engine.Encode("oiar")
 	assert.Error(t, err)
 
@@ -227,11 +227,11 @@ func TestEngineInvalidDB(t *testing.T) {
 }
 
 func TestEngineSetOption(t *testing.T) {
-	engine := cangjie.New()
+	engine := congkit.New()
 
 	assert.False(t, engine.OutputSimplified)
 
-	engine.Set(cangjie.WithSimplified())
+	engine.Set(congkit.WithSimplified())
 	assert.True(t, engine.OutputSimplified)
 
 	assert.NoError(t, engine.Close())
@@ -240,7 +240,7 @@ func TestEngineSetOption(t *testing.T) {
 func TestEngineEncodeForMultiRadicalSetsWord(t *testing.T) {
 	wordWithMultipleRadicalSets := '曰'
 
-	engine := cangjie.New(cangjie.WithDatabase(TestDBPath))
+	engine := congkit.New(congkit.WithDatabase(TestDBPath))
 
 	results, err := engine.Encode("a")
 	assert.NoError(t, err)

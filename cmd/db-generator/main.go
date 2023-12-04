@@ -7,8 +7,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/antonyho/go-cangjie/internal/data"
-	"github.com/antonyho/go-cangjie/internal/db"
+	"github.com/antonyho/go-congkit/internal/data"
+	"github.com/antonyho/go-congkit/internal/db"
 )
 
 var (
@@ -17,9 +17,9 @@ var (
 )
 
 const (
-	DefaultTarget = "cangjie.db"
+	DefaultTarget = "congkit.db"
 
-	SourceFileUsage = "Cangjie source table file path"
+	SourceFileUsage = "Congkit source table file path"
 	TargetFileUsage = "Target database file path"
 	HelpUsage       = "Print usages"
 )
@@ -42,22 +42,22 @@ func main() {
 
 	var sourceTable [][]string
 	if source == "" {
-		fmt.Println("Using built-in Cangjie radicals table")
+		fmt.Println("Using built-in Congkit radicals table")
 
 		sourceTable, err = data.ReadBuiltinTable()
 		if err != nil {
-			log.Fatalf("Failed reading data from built-in Cangjie table.\n%v\n", err)
+			log.Fatalf("Failed reading data from built-in Congkit table.\n%v\n", err)
 		}
 	} else {
-		fmt.Println("Using provided Cangjie radicals table ", source)
+		fmt.Println("Using provided Congkit radicals table ", source)
 
 		sourceTableFile, err := os.Open(source)
 		if err != nil {
-			log.Fatalf("Failed opening Cangjie table file %s.\n%v\n", source, err)
+			log.Fatalf("Failed opening Congkit table file %s.\n%v\n", source, err)
 		}
 		sourceTable, err = data.ReadTable(sourceTableFile)
 		if err != nil {
-			log.Fatalf("Failed reading data from Cangjie table.\n%v\n", err)
+			log.Fatalf("Failed reading data from Congkit table.\n%v\n", err)
 		}
 	}
 
@@ -73,7 +73,7 @@ func main() {
 	fmt.Printf("Target database file path: %s\n", target)
 
 	if err = db.Generate(sourceTable, target); err != nil {
-		log.Fatalf("Failed generating Cangjie database file.\n%v\n", err)
+		log.Fatalf("Failed generating Congkit database file.\n%v\n", err)
 	}
 }
 

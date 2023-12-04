@@ -17,11 +17,11 @@ var (
 )
 
 //go:embed assets/table.txt
-var builtinCangjieTable embed.FS
+var builtinCongkitTable embed.FS
 
-func ReadTable(cangjieTableContent fs.File) ([][]string, error) {
+func ReadTable(congkitTableContent fs.File) ([][]string, error) {
 	table := make([][]string, 0)
-	scanner := bufio.NewScanner(cangjieTableContent)
+	scanner := bufio.NewScanner(congkitTableContent)
 	for lineNum := 0; scanner.Scan(); lineNum++ {
 		entry, err := readRaw(scanner.Text())
 		if err != nil {
@@ -39,14 +39,14 @@ func ReadTable(cangjieTableContent fs.File) ([][]string, error) {
 }
 
 func ReadBuiltinTable() ([][]string, error) {
-	file, err := builtinCangjieTable.Open("assets/table.txt")
+	file, err := builtinCongkitTable.Open("assets/table.txt")
 	if err != nil {
 		return nil, err
 	}
 	return ReadTable(file)
 }
 
-// Read the line of raw data from the embed Cangjie radicals table.
+// Read the line of raw data from the embed Congkit radicals table.
 // Refer to the readme file in `assets/` directory for the data format.
 func readRaw(line string) ([]string, error) {
 	trimmedLine := strings.TrimSpace(line)
